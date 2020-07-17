@@ -1,67 +1,34 @@
-require("dotenv").config({
-  path: `.env.${process.env.NODE_ENV}`,
-})
-
-//configure your agility plugin with environment variables so that
-//your agility api credentials stay secure
-const agilityConfig = {
-  guid: process.env.AGILITY_GUID,
-  apiKey: process.env.AGILITY_API_KEY,
-  isPreview: process.env.AGILITY_API_ISPREVIEW
-
-  
-}
-
-/**
- * Configure your Gatsby site with this file.
- *
- * See: https://www.gatsbyjs.org/docs/gatsby-config/
- */
-
 module.exports = {
   siteMetadata: {
-    title: "Agility CMS Gatsby Starter",
-
+    title: `Gatsby Default Starter`,
+    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
+    author: `@gatsbyjs`,
   },
   plugins: [
-    `gatsby-plugin-netlify`,
     `gatsby-plugin-react-helmet`,
     {
-      //the name of the plugin
-      resolve: "@agility/gatsby-source-agilitycms", 
-      //the options for our plugin
+      resolve: `gatsby-source-filesystem`,
       options: {
-        //your Agility Content Fetch API Guid
-        guid: agilityConfig.guid, 
-        //your Agility Content Fetch API Key
-        apiKey: agilityConfig.apiKey, 
-        //set this to true if you are using the preview API Key
-        isPreview: agilityConfig.isPreview, 
-        //set this to true to see expanded traces in the build logs
-        debug: false,
-        //the languages you want to source content for
-        languages: [{
-          // The name of the language code
-          name: "English",
-          // The actual language code set in Agility CMS
-          code: "en-us", 
-          // The name to be used in the URL path that represents the current language
-          path: "en"
-        }], 
-        // The channels you want to include
-        channels: [{
-          // The reference name for the website channel as it is defined in Agility CMS
-          referenceName: "website"
-        }],
-         //the page template that will be used to render Agility CMS pages
-        masterPageTemplate: "./src/AgilityPage.js"
+        name: `images`,
+        path: `${__dirname}/src/images`,
       },
     },
-    `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
-    { 
-      resolve: `gatsby-source-filesystem`,
-      options: { name: `images`, path: `./src/img/` }
+    `gatsby-plugin-sharp`,
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `gatsby-starter-default`,
+        short_name: `starter`,
+        start_url: `/`,
+        background_color: `#663399`,
+        theme_color: `#663399`,
+        display: `minimal-ui`,
+        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+      },
     },
+    // this (optional) plugin enables Progressive Web App + Offline functionality
+    // To learn more, visit: https://gatsby.dev/offline
+    // `gatsby-plugin-offline`,
   ],
 }
